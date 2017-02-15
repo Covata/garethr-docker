@@ -10,11 +10,9 @@ class docker::repos {
       if ($docker::use_upstream_package_source) {
         if ($docker::docker_cs) {
           $location = $docker::package_cs_source_location
-          $key_source = $docker::package_cs_key_source
           $package_key = $docker::package_cs_key
         } else {
           $location = $docker::package_source_location
-          $key_source = $docker::package_key_source
           $package_key = $docker::package_key
         }
         $apt_required_packages = [ 'debian-keyring', 'debian-archive-keyring', ]
@@ -25,7 +23,6 @@ class docker::repos {
           repos    => $docker::package_repos,
           key      => {
             'id'     => $package_key,
-            'source' => $key_source,
           },
           pin      => '10',
           include  => {
