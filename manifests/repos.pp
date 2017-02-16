@@ -15,8 +15,6 @@ class docker::repos {
           $location = $docker::package_source_location
           $package_key = $docker::package_key
         }
-        $apt_required_packages = [ 'debian-keyring', 'debian-archive-keyring', ]
-        ensure_packages($apt_required_packages)
         apt::source { 'docker':
           location => $location,
           release  => $docker::package_release,
@@ -28,7 +26,6 @@ class docker::repos {
           include  => {
             'src' => false,
           },
-          require  => Package[$apt_required_packages],
         }
         if $docker::manage_package {
           include apt
